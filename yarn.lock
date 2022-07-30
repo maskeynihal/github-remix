@@ -1158,6 +1158,11 @@
   dependencies:
     json-parse-even-better-errors "^2.3.1"
 
+"@radix-ui/react-icons@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-icons/-/react-icons-1.1.1.tgz#38d2aa548035dd3b799c169bd17177b1cec3152b"
+  integrity sha512-xc3wQC59rsFylVbSusQCrrM+6695ppF730Q6yqzhRdqDcRNWIm2R6ngpzBoSOQMcwnq4p805F+Gr7xo4fmtN1A==
+
 "@remix-run/dev@^1.6.6":
   version "1.6.6"
   resolved "https://registry.yarnpkg.com/@remix-run/dev/-/dev-1.6.6.tgz#85b97450dc9bccbc70e2721825f4280162e8366a"
