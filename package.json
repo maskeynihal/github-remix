@@ -2,9 +2,11 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
-    "start": "cross-env NODE_ENV=production netlify dev"
+    "start": "cross-env NODE_ENV=production netlify dev",
+    "build": "yarn build:css && remix build",
+    "build:css": "tailwindcss -m -i ./assets/styles/tailwind.css -o app/assets/styles/tailwind.css",
+    "dev": "concurrently \"yarn dev:css\" \"remix dev\"",
+    "dev:css": "tailwindcss -w -i ./assets/styles/tailwind.css -o app/assets/styles/tailwind.css"
   },
   "dependencies": {
     "@netlify/functions": "^1.0.0",
@@ -21,7 +23,11 @@
     "@remix-run/serve": "^1.6.6",
     "@types/react": "^17.0.47",
     "@types/react-dom": "^17.0.17",
+    "autoprefixer": "^10.4.8",
+    "concurrently": "^7.3.0",
     "eslint": "^8.20.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.7",
     "typescript": "^4.7.4"
   },
   "engines": {

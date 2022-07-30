@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -8,11 +8,35 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import styles from "./assets/styles/tailwind.css";
+
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Github Remix",
   viewport: "width=device-width,initial-scale=1",
 });
+
+export const links: LinksFunction = () => [
+  {
+    rel: "apple-touch-icon",
+    sizes: "180x180",
+    href: "/favicon/apple-touch-icon.png",
+  },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "32x32",
+    href: "/favicon/favicon-32x32.png",
+  },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "16x16",
+    href: "/favicon/favicon-16x16.png",
+  },
+  { rel: "manifest", href: "/favicon/site.webmanifest" },
+  { rel: "stylesheet", href: styles },
+];
 
 export default function App() {
   return (
