@@ -27,6 +27,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       })
     );
   } catch (error) {
+    console.error(error);
     return {};
   }
 };

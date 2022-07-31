@@ -34,6 +34,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
     return json(await getRepos(queries));
   } catch (error) {
+    console.error(error);
     return {};
   }
 };
@@ -110,7 +111,7 @@ const Search = () => {
   const startOffset = (currentPage - 1) * pageSize + 1;
   const endOffset = (currentPage - 1) * pageSize + pageSize;
 
-  const hasData = Boolean(repos.items.length);
+  const hasData = Boolean(repos?.items?.length);
 
   useEffect(() => {
     const per_page = searchParams.get("per_page") || "10";
