@@ -56,8 +56,13 @@ const RepoCard = (props: IRepoCard) => {
             loading="lazy"
           />
           <div className="">
-            <div className="text-base text-slate-900 font-semibold dark:text-slate-300">
-              <a href={`${props.owner.htmlUrl}`} tabIndex={-1}>
+            <div className="text-base font-semibold text-slate-300">
+              <a
+                href={`${props.owner.htmlUrl}`}
+                tabIndex={-1}
+                target="_blank"
+                rel="noreferrer"
+              >
                 {props.owner.login}
               </a>
             </div>

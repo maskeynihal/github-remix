@@ -3,7 +3,7 @@ import { SearchRepo } from "~/components/Search";
 const Header = () => {
   return (
     <div className="container mx-auto py-8">
-      <div className="border-b border-slate-900/10 lg:border-0 dark:border-slate-300/10">
+      <div className="border-b lg:border-0 border-slate-300/10">
         <div className="relative flex items-center justify-between">
           <a
             className="text-white mr-3 flex-none w-[2.0625rem] overflow-hidden md:w-auto flex items-center"

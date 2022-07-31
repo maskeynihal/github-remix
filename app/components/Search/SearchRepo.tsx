@@ -1,8 +1,12 @@
+import clsx from "clsx";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { Form, useSearchParams } from "@remix-run/react";
+import { Form, useSearchParams, useTransition } from "@remix-run/react";
 
 const SearchRepo = () => {
   const [searchParams] = useSearchParams();
+  const transition = useTransition();
+
+  const isSearching = transition.state === "submitting";
 
   return (
     <Form action="/search" method="get">
@@ -20,8 +24,16 @@ const SearchRepo = () => {
             defaultValue={searchParams.get("q") || ""}
           />
         </label>
-        <button className="ml-4 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-md">
-          Search
+        <button
+          className={clsx(
+            "ml-4 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-md",
+            {
+              "disabled:bg-slate-700 cursor-not-allowed": isSearching,
+            }
+          )}
+          disabled={isSearching}
+        >
+          {isSearching ? "Searching..." : "Search"}
         </button>
       </div>
     </Form>

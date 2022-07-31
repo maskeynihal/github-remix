@@ -2,7 +2,7 @@ import api from "~/lib/api";
 import endPoints from "~/constants/endpoints.constant";
 import { DEFAULT_PARAMS } from "~/constants/app.constants";
 
-type RepoSortType = "stars" | "forks" | "updated" | "help-wanted-issues";
+export type RepoSortType = "stars" | "forks" | "updated" | "help-wanted-issues";
 
 export interface RepoParams {
   q: string;
