@@ -1,26 +1,24 @@
-import { json, redirect } from "@remix-run/node";
-import type { LoaderFunction } from "@remix-run/node";
-
 import {
-  useLoaderData,
   useLocation,
   useNavigate,
-  useSearchParams,
+  useLoaderData,
   useTransition,
+  useSearchParams,
 } from "@remix-run/react";
-import { getRepos } from "~/services/api/repo.services";
-import type { RepoSortType } from "~/services/api/repo.services";
-import { getQueryParams } from "~/utils/url";
+import { useEffect } from "react";
 import RepoCard from "./components/Card";
+import { getQueryParams } from "~/utils/url";
 import { Header } from "~/components/Header";
 import { Select } from "~/components/select";
 import type { ActionMeta } from "react-select";
+import { json, redirect } from "@remix-run/node";
 import { Pagination } from "~/components/Pagination";
-import { useEffect } from "react";
-import { Cross1Icon, TokensIcon } from "@radix-ui/react-icons";
 import SortDirection from "./components/SortDirection";
-
+import { getRepos } from "~/services/api/repo.services";
 import type { SortType } from "./components/SortDirection";
+import { Cross1Icon, TokensIcon } from "@radix-ui/react-icons";
+import type { RepoSortType } from "~/services/api/repo.services";
+import type { MetaFunction, LoaderFunction } from "@remix-run/node";
 
 type LoaderData = Awaited<ReturnType<typeof getRepos>>;
 type ErrorBoundaryComponentProps = any;
@@ -38,6 +36,14 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   } catch (error) {
     return {};
   }
+};
+
+export const meta: MetaFunction = ({ data, parentsData, params, location }) => {
+  const query = new URLSearchParams(location.search);
+
+  return {
+    title: `Search: ${query.get("q")} | Github Remix`,
+  };
 };
 
 export const ErrorBoundary = ({ error }: ErrorBoundaryComponentProps) => {

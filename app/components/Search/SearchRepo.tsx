@@ -1,11 +1,18 @@
 import clsx from "clsx";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { Form, useSearchParams, useTransition } from "@remix-run/react";
+import {
+  Form,
+  useParams,
+  useSearchParams,
+  useTransition,
+} from "@remix-run/react";
 
 const SearchRepo = () => {
   const [searchParams] = useSearchParams();
   const transition = useTransition();
+  const params = useParams();
 
+  const defaultRepo = searchParams.get("q") || params.repo || "";
   const isSearching = transition.state === "submitting";
 
   return (
@@ -21,7 +28,7 @@ const SearchRepo = () => {
             placeholder="Search for repositories..."
             type="text"
             name="q"
-            defaultValue={searchParams.get("q") || ""}
+            defaultValue={defaultRepo}
           />
         </label>
         <button

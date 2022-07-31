@@ -1,7 +1,12 @@
-import { EyeOpenIcon, MagicWandIcon, StarIcon } from "@radix-ui/react-icons";
+import {
+  CommitIcon,
+  EyeOpenIcon,
+  RadiobuttonIcon,
+  Share1Icon,
+  StarIcon,
+} from "@radix-ui/react-icons";
 import { Link } from "@remix-run/react";
 import { formatDistance } from "date-fns";
-import { formatDate } from "~/lib/date";
 
 export interface IRepoCard {
   name: string;
@@ -10,6 +15,7 @@ export interface IRepoCard {
   forksCount: number;
   updatedAt: string;
   watchersCount: number;
+  htmlUrl?: string;
   owner: {
     login: string;
     id: number;
@@ -20,17 +26,30 @@ export interface IRepoCard {
     htmlUrl: string;
     type: string;
   };
+  defaultBranch?: string;
+  openIssues?: number;
 }
 
 const RepoCard = (props: IRepoCard) => {
   return (
     <div className="bg-slate-800 rounded-lg mb-4 p-4">
-      <Link
-        className="h3 text-white font-bold tracking-wide text-lg"
-        to={`/repo/${props.owner.login}/${props.name}`}
-      >
-        {props.name}
-      </Link>
+      <div className="flex items-center justify-between">
+        <Link
+          className="h3 text-white font-bold tracking-wide text-lg"
+          to={props.htmlUrl || `/repo/${props.owner.login}/${props.name}`}
+          target={props.htmlUrl ? "_blank" : "_self"}
+          rel="noopener noreferrer"
+        >
+          {props.name}
+        </Link>
+
+        {Boolean(props.defaultBranch) && (
+          <div className="flex items-center">
+            <CommitIcon />
+            <p className="pl-4 text-white">{props.defaultBranch}</p>
+          </div>
+        )}
+      </div>
 
       <div className="flex items-center mb-4">
         <div className="flex items-center" title="Starred by">
@@ -42,9 +61,15 @@ const RepoCard = (props: IRepoCard) => {
           <span className="pl-2">{props.watchersCount}</span>
         </div>
         <div className="flex items-center ml-4" title="Forked By">
-          <MagicWandIcon />
+          <Share1Icon className="-rotate-45" />
           <span className="pl-2">{props.forksCount}</span>
         </div>
+        {Boolean(props.openIssues) && (
+          <div className="flex items-center ml-4" title="Open Issues">
+            <RadiobuttonIcon />
+            <span className="pl-2">{props.openIssues}</span>
+          </div>
+        )}
       </div>
       <p className="text-slate-300 mb-2">{props.description}</p>
       <div className="flex items-center justify-between">

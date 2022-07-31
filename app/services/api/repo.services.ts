@@ -1,6 +1,7 @@
 import api from "~/lib/api";
 import endPoints from "~/constants/endpoints.constant";
 import { DEFAULT_PARAMS } from "~/constants/app.constants";
+import { interpolate } from "~/utils/string";
 
 export type RepoSortType = "stars" | "forks" | "updated" | "help-wanted-issues";
 
@@ -45,7 +46,19 @@ export interface GithubRepoSearch {
   items: GithubRepo[];
 }
 
-const getRepos = async (params: RepoParams): Promise<GithubRepoSearch> => {
+export interface RepoDetailsParams {
+  owner: string;
+  repo: string;
+}
+
+export interface RepoDetails extends GithubRepo {
+  open_issues: number;
+  default_branch: string;
+}
+
+export const getRepos = async (
+  params: RepoParams
+): Promise<GithubRepoSearch> => {
   const { data: repos } = await api.get(endPoints.search.repos, {
     params: { ...DEFAULT_PARAMS, ...params },
   });
@@ -53,4 +66,14 @@ const getRepos = async (params: RepoParams): Promise<GithubRepoSearch> => {
   return repos;
 };
 
-export { getRepos };
+export const getRepoDetails = async (
+  params: RepoDetailsParams
+): Promise<RepoDetails> => {
+  const { owner, repo } = params;
+
+  const { data } = await api.get(
+    interpolate(endPoints.repo.details, { owner, repo })
+  );
+
+  return data;
+};
