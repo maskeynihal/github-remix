@@ -1,10 +1,17 @@
 import { Header } from "~/components/Header";
 import { json, redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import {
+  Link,
+  useLoaderData,
+  useNavigate,
+  useTransition,
+} from "@remix-run/react";
 import RepoCard from "~/routes/search/components/Card";
 import { getRepoDetails } from "~/services/api/repo.services";
 import type { RepoDetails } from "~/services/api/repo.services";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import Card from "~/components/card/Card";
+import { ArrowLeftIcon, TokensIcon } from "@radix-ui/react-icons";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   try {
@@ -30,10 +37,27 @@ export const meta: MetaFunction = ({ data }) => ({
 
 const Repo = () => {
   const repo = useLoaderData<RepoDetails>();
+  const navigate = useNavigate();
+  const transition = useTransition();
+
+  const isLoading = transition.state === "loading";
 
   return (
     <>
       <Header />
+
+      <div className="container mx-auto">
+        <Card>
+          <button onClick={() => navigate(-1)} className="flex items-center">
+            {isLoading ? (
+              <TokensIcon className="animate-spin" />
+            ) : (
+              <ArrowLeftIcon />
+            )}{" "}
+            <span className="ml-2">Back</span>
+          </button>
+        </Card>
+      </div>
 
       <div className="container mx-auto">
         <RepoCard

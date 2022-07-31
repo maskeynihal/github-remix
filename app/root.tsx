@@ -45,8 +45,12 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="antialiased text-slate-400 bg-slate-900 h-screen">
+      <body className="antialiased text-slate-400 bg-slate-900 h-screen relative">
         <Outlet />
+        <span className="fixed bottom-0 right-0 p-2">
+          <a href="https://bit.ly/linkedin-maskey-nihal">Nihal Maskey</a>
+        </span>
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

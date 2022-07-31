@@ -156,6 +156,7 @@ const Search = () => {
               {isLoading && <TokensIcon className="animate-spin ml-4" />}
             </div>
             <div className="flex items-center justify-between">
+              <span className="mr-4">Sort By</span>
               <Select
                 options={sortOptions}
                 placeholder="Sort By"
@@ -164,7 +165,6 @@ const Search = () => {
                   (option) => option.value === orderBy
                 )}
               />
-
               {orderBy && (
                 <div className="flex items-center justify-between">
                   <SortDirection
@@ -215,19 +215,23 @@ const Search = () => {
             pageCount={totalPages}
             renderOnZeroPageCount={() => null}
           />
-          <Select
-            placeholder="Select page size"
-            className="w-48"
-            options={pageSizeOptions}
-            menuPosition="fixed"
-            onChange={handlePageSizeUpdate as any}
-            defaultValue={
-              pageSizeOptions.find(
-                (option) =>
-                  +option.value === +(searchParams.get("per_page") || 10)
-              ) || pageSizeOptions[0]
-            }
-          />
+
+          <div className="flex items-center">
+            <span className="mr-4">Page Size: </span>
+            <Select
+              placeholder="Select page size"
+              className="w-24"
+              options={pageSizeOptions}
+              menuPosition="fixed"
+              onChange={handlePageSizeUpdate as any}
+              defaultValue={
+                pageSizeOptions.find(
+                  (option) =>
+                    +option.value === +(searchParams.get("per_page") || 10)
+                ) || pageSizeOptions[0]
+              }
+            />
+          </div>
         </div>
       </div>
     </>

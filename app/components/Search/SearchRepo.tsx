@@ -28,6 +28,7 @@ const SearchRepo = () => {
             placeholder="Search for repositories..."
             type="text"
             name="q"
+            autoFocus
             defaultValue={defaultRepo}
           />
         </label>
